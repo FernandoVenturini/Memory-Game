@@ -1,7 +1,7 @@
-// Crie uma matriz com pares de números representando as cartas
+// Create a matrix with pairs of numbers representing the cards:
 const cards = [1, 1, 2, 2, 3, 3, 4, 4];
 
-// Crie um objeto para armazenar as imagens correspondentes para cada carta
+// Create an object to store the corresponding images for each card:
 async function generateImagePairs() {
   const imagePairs = {};
   for (let i = 0; i < cards.length; i++) {
@@ -14,7 +14,7 @@ async function generateImagePairs() {
   return imagePairs;
 }
 
-// Embaralhe a matriz de cartas
+// Shuffle the card array:
 function shuffleCards(cards) {
   cards.sort(() => Math.random() - 0.5);
 }
@@ -23,7 +23,7 @@ let flippedCards = 0;
 let firstCard, secondCard;
 let attempts = 0;
 
-// Selecione as cartas e atribua um número da matriz a cada carta
+// Select cards and assign a matrix number to each card:
 async function createCards() {
   const imagePairs = await generateImagePairs();
   shuffleCards(cards);
@@ -52,7 +52,7 @@ async function createCards() {
   }
 }
 
-// Vire a carta clicada
+// Turn the clicked card:
 function flipCard() {
   if (flippedCards < 2 && !this.classList.contains("flip")) {
     flippedCards++;
@@ -68,7 +68,7 @@ function flipCard() {
   }
 }
 
-// Verifique se as cartas viradas são iguais
+// Check if the cards turned over are the same:
 function checkForMatch() {
   const isMatch =
     firstCard.getAttribute("data-card") ===
@@ -76,7 +76,7 @@ function checkForMatch() {
   isMatch ? disableCards() : unflipCards();
 }
 
-// Desabilita as cartas viradas se forem iguais
+// Disables flipped cards if they are the same:
 function disableCards() {
   firstCard.removeEventListener("click", flipCard);
   secondCard.removeEventListener("click", flipCard);
@@ -89,7 +89,7 @@ function disableCards() {
   resetBoard();
 }
 
-// Desvira as cartas se não forem iguais
+// Turn over the cards if they are not the same:
 function unflipCards() {
   setTimeout(() => {
     firstCard.classList.remove("flip");
@@ -98,12 +98,12 @@ function unflipCards() {
   }, 1000);
 }
 
-// Reinicia o tabuleiro
+// Reset the board:
 function resetBoard() {
   [flippedCards, firstCard, secondCard] = [0, null, null];
 }
 
-// Atualiza o número de tentativas
+// Updates the number of attempts:
 function updateAttempts() {
   const attemptsElement = document.querySelector(".attempts");
   attemptsElement.textContent = `Tentativas: ${attempts}`;
